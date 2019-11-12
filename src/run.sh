@@ -1,4 +1,4 @@
-linux \
+./linux \
     root=/dev/root \
     rootfstype=hostfs \
     rootflags=$PWD/rootfs \
