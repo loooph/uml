@@ -1,4 +1,5 @@
 # TODO use a makefile instead
+PROJECT_ROOT=$PWD
 BUILDDIR=${BUILDDIR:-$PWD/build}
 INSTALLDIR=${INSTALLDIR:-$PWD/install}
 
@@ -24,7 +25,7 @@ cd $BUILDDIR &&
 wget --convert-links -O alpinerelease.html http://dl-cdn.alpinelinux.org/alpine/latest-stable/releases/x86_64/ &&
 ROOTFS_URL=`grep -o "http://[^\"]*minirootfs[^\"]*tar.gz" alpinerelease.html | sort | tail -n 1` &&
 wget $ROOTFS_URL -O rootfs.tgz &&
-mkdir rootfs &&
+mkdir -p rootfs &&
 cd rootfs &&
 tar xf ../rootfs.tgz &&
 # TODO
@@ -32,4 +33,6 @@ tar xf ../rootfs.tgz &&
 
 # install the system TODO
 mkdir -p $INSTALLDIR &&
-cp $BUILDDIR/linux-$KERNEL_VERSION/linux $INSTALLDIR
+cp $BUILDDIR/linux-$KERNEL_VERSION/linux $INSTALLDIR &&
+cp -r $BUILDDIR/rootfs $INSTALLDIR/rootfs &&
+cp $PROJECT_ROOT/src/run.sh $INSTALLDIR
